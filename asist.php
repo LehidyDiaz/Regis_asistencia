@@ -84,7 +84,7 @@ echo $_SESSION["user"];
 
             <div class="bottom-content">
                 <li class="">
-                    <a href="goog.php">
+                    <a href="index.php">
                         <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Salir</span>
                     </a>
@@ -119,19 +119,24 @@ echo $_SESSION["user"];
                             <th>Fecha</th>
                             <th>Hora Entrada</th>
                             <th>Hora Salida</th>
-                            <th>iD Empleado</th>
+                            <th>Empleado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <?php
-                    $sql = "SELECT * FROM asistencia WHERE fecha LIKE '%$busqueda%' OR idEmpleado LIKE '%$busqueda%' ";
+                    // Consulta SQL mejorada para obtener el nombre y apellido del empleado
+                    $sql = "SELECT a.*, e.nombre, e.apellido 
+                            FROM asistencia a
+                            LEFT JOIN empleado e ON a.idEmpleado = e.idEmpleado
+                            WHERE a.fecha LIKE '%$busqueda%' OR e.nombre LIKE '%$busqueda%' OR e.apellido LIKE '%$busqueda%'";
+
                     $resultado = mysqli_query($enlace, $sql);
 
                     while ($row = mysqli_fetch_assoc($resultado)) {
                         echo "<td>{$row['fecha']}</td>";
                         echo "<td>{$row['horaEntrada']}</td>";
                         echo "<td>{$row['horaSalida']}</td>";
-                        echo "<td>{$row['idEmpleado']}</td>";
+                        echo "<td>{$row['nombre']} {$row['apellido']}</td>";
 
                         echo "<td><a href='asistupdate.php?idAsistencia={$row['idAsistencia']}' class='btn'>Editar</a>  <a href='asistdelete.php?idAsistencia={$row['idAsistencia']}' class='btn'>Borrar</a> ";
 

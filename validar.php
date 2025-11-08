@@ -4,7 +4,6 @@ include('configGoog.php');
 
 session_start();  
 error_reporting(0);
-$_SESSION["user"] = $username;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!empty($_POST['btningresar'])) {
@@ -13,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 alert('LOS CAMPOS ESTÁN VACIOS');
                 window.location.href = 'goog.php';
               </script>";
-                
         } else {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -29,9 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                session_start();
-                $_SESSION["user"] = $username;
-                header("Location: index.php");
+                $_SESSION["user"] = $username; // Mover esto aquí
+                header("Location: registro.php");
                 exit(); 
             } else {
                 echo "<script>
@@ -93,3 +90,4 @@ if (isset($_GET["code"])) {
         }
     }
 }
+?>

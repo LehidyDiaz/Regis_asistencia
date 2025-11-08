@@ -83,7 +83,7 @@ echo $_SESSION["user"];
 
             <div class="bottom-content">
                 <li class="">
-                    <a href="goog.php">
+                    <a href="index.php">
                         <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Salir</span>
                     </a>
@@ -104,7 +104,7 @@ echo $_SESSION["user"];
                     <input type="text" name="busqueda" placeholder="Buscar..." value="<?php echo htmlspecialchars($busqueda); ?>">
                     <input type="submit" value="Buscar" class="btn"><br><br>
                 </form>
-                <a href='vacexport.php?busqueda=<?php echo htmlspecialchars($busqueda); ?>'>
+                <a href='export.php?busqueda=<?php echo htmlspecialchars($busqueda); ?>'>
                     <input type="button" class="btn" value="Descargar">
                 </a>
                 <div class="crear">
@@ -131,14 +131,19 @@ echo $_SESSION["user"];
                             <th>Email</th>
                             <th>Fecha de Contratación</th>
                             <th>Salario</th>
-                            <th>Id Oficina</th>
-                            <th>Id Posición</th>
+                            <th>Oficina</th>
+                            <th>Posición</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <?php
-                    $sql = "SELECT * FROM empleado WHERE nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%' OR DNI LIKE '%$busqueda%'";
-                    $resultado = mysqli_query($enlace, $sql);
+                  $sql = "SELECT e.*, o.nombre AS nombreOficina, r.nombre AS nombreRol 
+                  FROM empleado e
+                  LEFT JOIN oficina o ON e.idOficina = o.idOficina
+                  LEFT JOIN rol r ON e.idRol = r.idRol
+                  WHERE e.nombre LIKE '%$busqueda%' OR e.apellido LIKE '%$busqueda%' OR e.DNI LIKE '%$busqueda%'";
+          $resultado = mysqli_query($enlace, $sql);
+
 
                     while ($row = mysqli_fetch_assoc($resultado)) {
                         $imagen = $row["imagen"];
@@ -153,15 +158,15 @@ echo $_SESSION["user"];
                         echo "<td>{$row['email']}</td>";
                         echo "<td>{$row['fechaContratacion']}</td>";
                         echo "<td>{$row['salario']}</td>";
-                        echo "<td>{$row['idOficina']}</td>";
-                        echo "<td>{$row['idRol']}</td>";
+                        echo "<td>{$row['nombreOficina']}</td>"; // Mostrar el nombre de la oficina
+    echo "<td>{$row['nombreRol']}</td>"; // Mostrar el nombre del rol
 
-                        echo "<td><a href='update.php?idEmpleado={$row['idEmpleado']}' class='btn'>Editar</a>
-                        <a href='delete.php?idEmpleado={$row['idEmpleado']}' class='btn'>Borrar</a>
-                      </td>";
-                        echo "</tr>";
-                    }
-                    ?>
+    echo "<td><a href='update.php?idEmpleado={$row['idEmpleado']}' class='btn'>Editar</a>
+          <a href='delete.php?idEmpleado={$row['idEmpleado']}' class='btn'>Borrar</a>
+          </td>";
+    echo "</tr>";
+}
+?>
 
                 </table>
 

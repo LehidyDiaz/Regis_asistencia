@@ -39,7 +39,7 @@ echo $_SESSION["user"];
                 <ul class="menu-links">
                     <li class="nav-links">
                         <a href="consultar.php">
-                        <i class='bx bxs-user-account icon'></i>
+                            <i class='bx bxs-user-account icon'></i>
                             <span class="text nav-text">Empleados</span>
                         </a>
                     </li>
@@ -51,13 +51,13 @@ echo $_SESSION["user"];
                     </li>
                     <li class="nav-links">
                         <a href="depconsul.php">
-                        <i class='bx bx-buildings icon'></i>
+                            <i class='bx bx-buildings icon'></i>
                             <span class="text nav-text">Oficina</span>
                         </a>
                     </li>
                     <li class="nav-links">
                         <a href="rolconsul.php">
-                        <i class='bx bxs-user-detail icon'></i>
+                            <i class='bx bxs-user-detail icon'></i>
                             <span class="text nav-text">Rol - Cargos</span>
                         </a>
                     </li>
@@ -84,15 +84,15 @@ echo $_SESSION["user"];
 
             <div class="bottom-content">
                 <li class="">
-                    <a href="goog.php">
+                    <a href="index.php">
                         <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Salir</span>
                     </a>
                 </li>
 
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
                 </li>
             </div>
         </div>
@@ -117,12 +117,15 @@ echo $_SESSION["user"];
                             <th>Relación</th>
                             <th>Teléfono</th>
                             <th>Dirección</th>
-                            <th>iD Empleado</th>
+                            <th>Empleado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <?php
-                    $sql = "SELECT * FROM contactoemergencia WHERE idEmpleado LIKE '%$busqueda%'";
+                    $sql = "SELECT a.*, e.nombre, e.apellido 
+                    FROM contactoemergencia a
+                    LEFT JOIN empleado e ON a.idEmpleado = e.idEmpleado
+                    WHERE a.idEmpleado LIKE '%$busqueda%'";
                     $resultado = mysqli_query($enlace, $sql);
 
                     while ($row = mysqli_fetch_assoc($resultado)) {
@@ -130,7 +133,7 @@ echo $_SESSION["user"];
                         echo "<td>{$row['relacion']}</td>";
                         echo "<td>{$row['telefono']}</td>";
                         echo "<td>{$row['direccion']}</td>";
-                        echo "<td>{$row['idEmpleado']}</td>";
+                        echo "<td>{$row['nombre']} {$row['apellido']}</td>";
 
                         echo "<td><a href='contupdate.php?idContacto={$row['idContacto']}' class='btn'>Editar</a> 
                          <a href='contdelete.php?idContacto={$row['idContacto']}' class='btn'>Borrar</a>";

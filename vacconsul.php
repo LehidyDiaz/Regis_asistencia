@@ -84,7 +84,7 @@ echo $_SESSION["user"];
 
             <div class="bottom-content">
                 <li class="">
-                    <a href="goog.php">
+                    <a href="index.php">
                         <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Salir</span>
                     </a>
@@ -119,19 +119,22 @@ echo $_SESSION["user"];
                             <th>Fecha Inicio</th>
                             <th>Fecha Fin</th>
                             <th>Motivo</th>
-                            <th>iD Empleado</th>
+                            <th>Empleado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <?php
-                    $sql = "SELECT * FROM vacaciones WHERE fechaInicio LIKE '%$busqueda%' OR fechaFin LIKE '%$busqueda%' ";
+                    $sql = "SELECT a.*, e.nombre, e.apellido 
+                    FROM vacaciones a
+                    LEFT JOIN empleado e ON a.idEmpleado = e.idEmpleado
+                    WHERE a.fechaInicio LIKE '%$busqueda%' OR a.fechaFin LIKE '%$busqueda%'";
                     $resultado = mysqli_query($enlace, $sql);
 
                     while ($row = mysqli_fetch_assoc($resultado)) {
                         echo "<td>{$row['fechaInicio']}</td>";
                         echo "<td>{$row['fechaFin']}</td>";
                         echo "<td>{$row['motivo']}</td>";
-                        echo "<td>{$row['idEmpleado']}</td>";
+                        echo "<td>{$row['nombre']} {$row['apellido']}</td>";
 
                         echo "<td><a href='vacupdate.php?idVacaciones={$row['idVacaciones']}' class='btn'>Editar</a>
                         <a href='vacdelete.php?idVacaciones={$row['idVacaciones']}' class='btn'>Borrar</a>";

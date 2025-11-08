@@ -1,102 +1,19 @@
-<?php 
-include("validar.php");
-include("validation.php");
-include("db.php"); 
-
-echo $_SESSION["user"];
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>REGISTRO DE PERSONAL</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <nav class="sidebar close">
-        <header>
-            <div class="image-text">
-                <span class="image">
-                    <img src="logo.png" alt="logo">
-                </span>
-                <div class="text header-text">
-                    <span class="name">Empresa - Nexus</span>
-                </div>
-            </div>
-            <i class='bx bx-chevron-right toggle'></i>
-        </header>
+    <title>Empresa Nexus</title>
+    <link rel="stylesheet" href="index.css">
+   </head>
+   <body>
+       <div class="container">
+       <img src="nexus.png" alt="Nexus" style="width: 160px; margin-bottom: 10px;">
+        <h1>Sistema de Gestión de Asistencia - Nexus</h1>
+        <p>Gestiona eficientemente la asistencia de tu equipo con la tecnología de reconocimiento facial de Nexus.</p>
 
-        <div class="menu-bar">
-            <div class="menu">
-                <ul class="menu-links">
-                    <li class="nav-links">
-                        <a href="consultar.php">
-                        <i class='bx bxs-user-account icon'></i>
-                            <span class="text nav-text">Empleados</span>
-                        </a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="asist.php">
-                            <i class='bx bx-user-check icon'></i>
-                            <span class="text nav-text">Asistencia</span>
-                        </a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="depconsul.php">
-                        <i class='bx bx-buildings icon'></i>
-                            <span class="text nav-text">Oficina</span>
-                        </a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="rolconsul.php">
-                        <i class='bx bxs-user-detail icon'></i>
-                            <span class="text nav-text">Rol - Cargos</span>
-                        </a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="contconsul.php">
-                            <i class='bx bxs-ambulance icon'></i>
-                            <span class="text nav-text">Contacto emergencia</span>
-                        </a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="vacconsul.php">
-                            <i class='bx bxs-plane-alt icon'></i>
-                            <span class="text nav-text">Vacaciones</span>
-                        </a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="deleted.php">
-                            <i class='bx bx-trash-alt icon'></i>
-                            <span class="text nav-text">Borrar</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bottom-content">
-                <li class="">
-                    <a href="goog.php">
-                        <i class='bx bx-log-out icon'></i>
-                        <span class="text nav-text">Salir</span>
-                    </a>
-                </li>
-
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
-            </div>
-        </div>
-    </nav>
-
-    <section class="home">
-        <div class="text">Bienvenido :D</div>
-    </section>
-
-    <script src="script.js"></script>
+        <a href="templates/registrar_asistencia.html" class="btn btn-primary">Registrar Asistencia</a>
+        <a href="goog.php" class="btn btn-secondary">Ver Asistencia y Datos</a>
+    </div>
 </body>
 </html>

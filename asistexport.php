@@ -15,22 +15,26 @@ $sheet = $spreadsheet->getActiveSheet();
 $sheet->setCellValue('A1', 'Fecha');
 $sheet->setCellValue('B1', 'Hora Entrada');
 $sheet->setCellValue('C1', 'Hora Salida');
-$sheet->setCellValue('D1', 'Id Empleado');
+$sheet->setCellValue('D1', 'Empleado');
 
-$sql = "SELECT * FROM asistencia WHERE (fecha LIKE '%$busqueda%' OR idEmpleado LIKE '%$busqueda%')";
+$sql = "SELECT a.*, e.nombre, e.apellido 
+        FROM asistencia a
+        LEFT JOIN empleado e ON a.idEmpleado = e.idEmpleado
+        WHERE a.fecha LIKE '%$busqueda%' OR e.nombre LIKE '%$busqueda%' OR e.apellido LIKE '%$busqueda%'";
 
 if (!empty($fecha_inicio) && !empty($fecha_fin)) {
-    $sql .= " AND (fecha >= '$fecha_inicio' AND fecha <= '$fecha_fin')";
+    $sql .= " AND (a.fecha >= '$fecha_inicio' AND a.fecha <= '$fecha_fin')";
 }
 
 $resultado = mysqli_query($enlace, $sql);
 
 $rowNum = 2;
 while ($row = mysqli_fetch_assoc($resultado)) {
+    $nombreCompleto = $row['nombre'] . ' ' . $row['apellido']; // Concatenar nombre y apellido
     $sheet->setCellValue('A' . $rowNum, $row['fecha']);
     $sheet->setCellValue('B' . $rowNum, $row['horaEntrada']);
     $sheet->setCellValue('C' . $rowNum, $row['horaSalida']);
-    $sheet->setCellValue('D' . $rowNum, $row['idEmpleado']);
+    $sheet->setCellValue('D' . $rowNum, $nombreCompleto); // Asignar nombre completo a la celda
     $rowNum++;
 }
 

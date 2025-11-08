@@ -3,7 +3,8 @@
 session_start();
 if (!isset($_SESSION["user"])) {
     if (!isset($_SESSION["user_email_address"])) {
-        header("Location: goog.php");
+        header("Location: index.php");
     } else {
     }
 }
+?>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Asistencia - Nexus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .manual-button, .automatic-button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .manual-button {
+            background-color: #507bff;
+            color: white;
+        }
+        .automatic-button {
+            background-color: #28a745;
+            color: white;
+            grid-column: span 2; /* Ocupa ambas columnas */
+        }
+        .manual-button:hover, .automatic-button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar Asistencia</h1>
+        <div class="button-group">
+            <form action="registrar_manual.php" method="post">
+                <button type="submit" class="button manual-button">Asistencia Manual</button>
+            </form>
+            <form action="salida_manual.php" method="post">
+                <button type="submit" class="button manual-button">Salida Manual</button>
+            </form>
+            <form action="fr_page" method="post">
+                <button type="submit" class="button automatic-button">Asistencia Automática</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

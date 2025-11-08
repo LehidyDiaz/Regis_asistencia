@@ -116,7 +116,7 @@ if (isset($_POST['update'])) {
 
             <div class="bottom-content">
                 <li class="">
-                    <a href="goog.php">
+                    <a href="index.php">
                         <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Salir</span>
                     </a>

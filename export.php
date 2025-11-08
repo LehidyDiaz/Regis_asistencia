@@ -20,10 +20,15 @@ $sheet->setCellValue('G1', 'Telefono');
 $sheet->setCellValue('H1', 'Email');
 $sheet->setCellValue('I1', 'Fecha de Contratación');
 $sheet->setCellValue('J1', 'Salario');
-$sheet->setCellValue('K1', 'Id Oficina');
-$sheet->setCellValue('L1', 'Id Posición');
+$sheet->setCellValue('K1', 'Oficina');
+$sheet->setCellValue('L1', 'Rol');
 
-$sql = "SELECT * FROM empleado WHERE nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%' OR DNI LIKE '%$busqueda%'";
+$sql = "SELECT e.*, o.nombre AS nombreOficina, r.nombre AS nombreRol 
+        FROM empleado e
+        LEFT JOIN oficina o ON e.idOficina = o.idOficina
+        LEFT JOIN rol r ON e.idRol = r.idRol
+        WHERE e.nombre LIKE '%$busqueda%' OR e.apellido LIKE '%$busqueda%' OR e.DNI LIKE '%$busqueda%'";
+
 $resultado = mysqli_query($enlace, $sql);
 
 $rowNum = 2;
@@ -38,8 +43,8 @@ while ($row = mysqli_fetch_assoc($resultado)) {
     $sheet->setCellValue('H' . $rowNum, $row['email']);
     $sheet->setCellValue('I' . $rowNum, $row['fechaContratacion']);
     $sheet->setCellValue('J' . $rowNum, $row['salario']);
-    $sheet->setCellValue('K' . $rowNum, $row['idOficina']);
-    $sheet->setCellValue('L' . $rowNum, $row['idRol']);
+    $sheet->setCellValue('K' . $rowNum, $row['nombreOficina']); // Mostrar el nombre de la oficina
+    $sheet->setCellValue('L' . $rowNum, $row['nombreRol']); // Mostrar el nombre del rol
     $rowNum++;
 }
 
